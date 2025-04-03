@@ -1,8 +1,7 @@
-package com.andy.iot.service;
+package com.andy.iot.service.interf;
 
-import org.springframework.stereotype.Service;
 
 public interface DataReceivedServiceInterface {
     void saveRecord(String feedName, double value);
-    
+
 }

@@ -1,6 +1,7 @@
 package com.andy.iot.service;
 
 import com.andy.iot.response.SensorDataResponse;
+import com.andy.iot.service.interf.DataReceivedServiceInterface;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class AdafruitService {
     private final RestTemplate restTemplate;
-    //private final DataReceivedServiceInterface dataReceivedService;
+    private final DataReceivedServiceInterface dataReceivedService;
 
     @Value("${adafruit.base-url}")
     private String baseUrl;
@@ -29,10 +30,10 @@ public class AdafruitService {
         int light = (int)getSensorValue("light");
         double conc = getSensorValue("conc");
 
-//        dataReceivedService.saveTemperature(temperature);
-//        dataReceivedService.saveHumidity(humidity);
-//        dataReceivedService.saveLight(light);
-//        dataReceivedService.saveAirQuality(conc);
+        dataReceivedService.saveRecord("temp", temperature);
+        dataReceivedService.saveRecord("humi", humidity);
+        dataReceivedService.saveRecord("light", (double)light);
+        dataReceivedService.saveRecord("conc", conc);
 
         response.setTemperature(temperature);
         response.setHumidity(humidity);

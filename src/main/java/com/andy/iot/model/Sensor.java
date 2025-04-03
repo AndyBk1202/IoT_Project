@@ -15,4 +15,8 @@ public class Sensor {
     private String type;
     @Column(name = "feed_name")
     private String feedName;
+
+    @ManyToOne
+    @JoinColumn(name = "server_account_id")
+    private ServerAccount serverAccount;
 }

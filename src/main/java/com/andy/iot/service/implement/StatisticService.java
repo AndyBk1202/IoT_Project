@@ -64,7 +64,14 @@ public class StatisticService implements StatisticServiceInterface {
                 result.add(sensorRecordAvgDTO);
             }
             else {
-                result.add(null);
+                SensorRecordAvgDTO sensorRecordAvgDTO = new SensorRecordAvgDTO(
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        startOfWeek.toLocalDate().plusDays(i)
+                );
+                result.add(sensorRecordAvgDTO);
             }
 
         }

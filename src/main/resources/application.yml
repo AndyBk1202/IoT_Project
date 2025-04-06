@@ -21,4 +21,4 @@ adafruit:
   username: Anhdo020204
   base-url: https://io.adafruit.com/api/v2/Anhdo020204/feeds
   api-key: aio_BXhj736qyMLQDGfjvL09czjE0G9R
-  receive-interval: 60000
+  receive-interval: 15000

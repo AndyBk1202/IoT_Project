@@ -16,7 +16,7 @@ public class JwtUtils {
     private final SecretKey key;
 
     public JwtUtils(){
-        String SECRET_KEY = "AndyHK242DADN_HCMUT12345678";
+        String SECRET_KEY = "AndyHK242DADNIOTSYSTEM_HCMUT12345678";
         this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 

@@ -57,8 +57,8 @@ public class AdafruitService {
         if (light > 600) {
             sendSignalAndLog(3, "Light intensity exceeded 600lux: " + light);
         }
-        if (conc > 1.5) {
-            sendSignalAndLog(4, "Air quality exceeded 1.5%: " + conc);
+        if (conc > 0.1) {
+            sendSignalAndLog(4, "Air quality exceeded 10%: " + conc);
         }
 
         response.setTemperature(temperature);

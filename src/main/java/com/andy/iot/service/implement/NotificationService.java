@@ -4,8 +4,11 @@ import com.andy.iot.model.Notification;
 import com.andy.iot.model.ServerAccount;
 import com.andy.iot.repository.NotificationRepository;
 import com.andy.iot.repository.ServerAccountRepository;
+import com.andy.iot.response.NotificationResponse;
 import com.andy.iot.service.interf.NotificationServiceInterface;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -27,7 +30,13 @@ public class NotificationService implements NotificationServiceInterface {
     }
 
     @Override
-    public List<Notification> getAllNotifications() {
-        return notificationRepository.findAll();
+    public NotificationResponse getAllNotifications(Pageable pageable) {
+        NotificationResponse response = new NotificationResponse();
+        Page<Notification> notificationPage = notificationRepository.findAllNotificationsSortedByTimeDesc(pageable);
+        response.setNotificationList(notificationPage.getContent());
+        response.setCurrentPage(notificationPage.getNumber());
+        response.setTotalPages(notificationPage.getTotalPages());
+        response.setTotalElements(notificationPage.getTotalElements());
+        return response;
     }
 }

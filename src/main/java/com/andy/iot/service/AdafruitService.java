@@ -48,8 +48,8 @@ public class AdafruitService {
         dataReceivedService.saveRecord("conc", conc);
 
         // Kiểm tra ngưỡng và gửi tín hiệu/lưu thông báo
-        if (temperature > 80) {
-            sendSignalAndLog("1", "Temperature exceeded 80°C: " + temperature);
+        if (temperature > 60) {
+            sendSignalAndLog("1", "Temperature exceeded 60°C: " + temperature);
         }
         if (humidity > 70) {
             sendSignalAndLog("2", "Humidity exceeded 70%: " + humidity);

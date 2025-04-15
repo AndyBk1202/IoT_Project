@@ -49,16 +49,16 @@ public class AdafruitService {
 
         // Kiểm tra ngưỡng và gửi tín hiệu/lưu thông báo
         if (temperature > 80) {
-            sendSignalAndLog(1, "Temperature exceeded 80°C: " + temperature);
+            sendSignalAndLog("1", "Temperature exceeded 80°C: " + temperature);
         }
         if (humidity > 70) {
-            sendSignalAndLog(2, "Humidity exceeded 70%: " + humidity);
+            sendSignalAndLog("2", "Humidity exceeded 70%: " + humidity);
         }
         if (light > 600) {
-            sendSignalAndLog(3, "Light intensity exceeded 600lux: " + light);
+            sendSignalAndLog("3", "Light intensity exceeded 600lux: " + light);
         }
         if (conc > 0.1) {
-            sendSignalAndLog(4, "Air quality exceeded 10%: " + conc);
+            sendSignalAndLog("4", "Air quality exceeded 10%: " + conc);
         }
 
         response.setTemperature(temperature);
@@ -87,9 +87,9 @@ public class AdafruitService {
         }
     }
 
-    public void sendSignalToAdafruit(int signal) {
-        if (signal < 1 || signal > 6) {
-            throw new IllegalArgumentException("Signal must be between 1 and 6");
+    public void sendSignalToAdafruit(String signal) {
+        if (signal == null || signal.trim().isEmpty()) {
+            throw new IllegalArgumentException("Signal must be a non-empty string");
         }
 
         String url = "https://io.adafruit.com/api/v2/Anhdo020204/feeds/telegram/data";
@@ -97,7 +97,7 @@ public class AdafruitService {
         headers.set("X-AIO-Key", apiKey);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        String payload = String.format("{\"value\": %d}", signal);
+        String payload = String.format("{\"value\": \"%s\"}", signal);
         HttpEntity<String> request = new HttpEntity<>(payload, headers);
 
         try {
@@ -107,7 +107,7 @@ public class AdafruitService {
         }
     }
 
-    private void sendSignalAndLog(int signal, String description) {
+    private void sendSignalAndLog(String signal, String description) {
         try {
             // Gửi tín hiệu tới Adafruit IO
             sendSignalToAdafruit(signal);

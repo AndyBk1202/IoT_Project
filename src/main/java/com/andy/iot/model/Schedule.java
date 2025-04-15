@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -21,9 +22,9 @@ public class Schedule {
     private boolean sat;
     private boolean sun;
     @Column(name = "from_time")
-    private LocalDateTime from;
+    private LocalTime from;
     @Column(name = "to_time")
-    private LocalDateTime to;
+    private LocalTime to;
 
     @ManyToOne
     @JoinColumn(name = "device_id")

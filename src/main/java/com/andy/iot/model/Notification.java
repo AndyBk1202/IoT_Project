@@ -1,5 +1,6 @@
 package com.andy.iot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class Notification {
     private LocalDateTime time;
     private String description;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "server_account_id")
     private ServerAccount serverAccount;

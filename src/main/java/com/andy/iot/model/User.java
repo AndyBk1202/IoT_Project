@@ -1,5 +1,6 @@
 package com.andy.iot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +15,10 @@ public class User implements UserDetails {
     @Id
     private String username;
     private String password;
-
+    private String fullName;
+    private String email;
+    private String phone;
+    private String address;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

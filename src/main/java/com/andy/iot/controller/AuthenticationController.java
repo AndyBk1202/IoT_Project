@@ -1,6 +1,7 @@
 package com.andy.iot.controller;
 
 import com.andy.iot.dto.LoginRequest;
+import com.andy.iot.dto.UserDTO;
 import com.andy.iot.model.Notification;
 import com.andy.iot.model.User;
 import com.andy.iot.response.ApiResponse;
@@ -9,10 +10,7 @@ import com.andy.iot.service.interf.UserServiceInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,6 +53,26 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                     ApiResponse.<LoginResponse>builder()
                             .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                            .message(e.getMessage())
+                            .data(null)
+                            .build()
+            );
+        }
+    }
+
+    @GetMapping("/info")
+    private ResponseEntity<ApiResponse<UserDTO>> getInfo(){
+        try {
+            UserDTO user = userService.getMyInfo();
+            return ResponseEntity.ok(ApiResponse.<UserDTO>builder()
+                    .status(HttpStatus.OK.value())
+                    .message("Get info successfully.")
+                    .data(user)
+                    .build());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    ApiResponse.<UserDTO>builder()
+                            .status(HttpStatus.NOT_FOUND.value())
                             .message(e.getMessage())
                             .data(null)
                             .build()

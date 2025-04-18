@@ -1,6 +1,7 @@
 package com.andy.iot.service.implement;
 
 import com.andy.iot.dto.LoginRequest;
+import com.andy.iot.dto.UserDTO;
 import com.andy.iot.model.User;
 import com.andy.iot.repository.UserRepository;
 import com.andy.iot.response.LoginResponse;
@@ -10,8 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,5 +47,18 @@ public class UserService implements UserServiceInterface {
         response.setExpirationTime("1 day");
 
         return response;
+    }
+
+    @Override
+    public UserDTO getMyInfo() throws RuntimeException {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUsername(user.getUsername());
+        userDTO.setFullName(user.getFullName());
+        userDTO.setPhone(user.getPhone());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setAddress(user.getAddress());
+        return userDTO;
     }
 }

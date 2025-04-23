@@ -51,7 +51,7 @@ public class AdafruitService {
         if (temperature > 60) {
             sendSignalAndLog("1", "Temperature exceeded 60°C: " + temperature);
         }
-        if (humidity > 70) {
+        if (humidity > 80) {
             sendSignalAndLog("2", "Humidity exceeded 70%: " + humidity);
         }
         if (light > 600) {
